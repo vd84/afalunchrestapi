@@ -16,10 +16,8 @@ namespace afalunchrestapi.Controllers {
         [HttpGet ("allfood")]
         public ActionResult<string> AllData () {
 
-            if(dbrepo.AllJsonData == null){
-                dbrepo.StartRecievingFromDB ();
-            }
-            
+            dbrepo.StartRecievingFromDB ();
+
             return new OkObjectResult (this.dbrepo.AllJsonData);
 
         }
