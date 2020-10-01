@@ -1,7 +1,5 @@
 using System;
-using System.Collections.Generic;
 using System.Text;
-using Newtonsoft;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 
@@ -10,9 +8,7 @@ namespace Database.Repository {
 
         public String AllJsonData { get; set; }
 
-
         public void StartRecievingFromDB () {
-            //string jsonAllDays = "";
 
             var factory = new ConnectionFactory () { HostName = "localhost" };
             using (var connection = factory.CreateConnection ())
@@ -23,7 +19,6 @@ namespace Database.Repository {
                     autoDelete : false,
                     arguments : null);
                     
-
                 var consumer = new EventingBasicConsumer (channel);
                 consumer.Received += (model, ea) => {
                     var body = ea.Body.ToArray ();
@@ -32,16 +27,14 @@ namespace Database.Repository {
                     AllJsonData = message;
 
                 };
+
                 channel.BasicConsume (queue: "datafromdatabase",
                     autoAck : true,
                     consumer : consumer);
 
                 Console.WriteLine (" Press [enter] to exit.");
                 Console.ReadLine ();
-
             }
-
         }
-
     }
 }
