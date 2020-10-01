@@ -35,7 +35,7 @@ namespace Database.Repository {
                 channel.BasicConsume (queue: "datafromdatabase",
                     autoAck : true,
                     consumer : consumer);
-
+                
                 Console.WriteLine (" Press [enter] to exit.");
                 Console.ReadLine ();
 

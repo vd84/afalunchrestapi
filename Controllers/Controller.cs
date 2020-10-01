@@ -15,10 +15,11 @@ namespace afalunchrestapi.Controllers {
         public DbRepo dbrepo = new DbRepo ();
         [HttpGet ("allfood")]
         public ActionResult<string> AllData () {
-            System.Console.WriteLine ("testststs");
 
-            dbrepo.StartRecievingFromDB ();
-            System.Console.WriteLine(this.dbrepo.AllJsonData);
+            if(dbrepo.AllJsonData == null){
+                dbrepo.StartRecievingFromDB ();
+            }
+            
             return new OkObjectResult (this.dbrepo.AllJsonData);
 
         }
