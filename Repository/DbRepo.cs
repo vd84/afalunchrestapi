@@ -14,6 +14,10 @@ namespace Database.Repository {
             return dbManager.SelectAllDishes();
         }
 
+        public string GetAllRestaurants() {
+            return dbManager.SelectAllRestaurants();
+        }
+
 
 
 
