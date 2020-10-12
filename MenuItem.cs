@@ -7,6 +7,7 @@ namespace Dbitems.MenuItem {
         public int IdOfRestaurant { get; set; }
         public string Ingredients { get; set; }
         public int Price { get; set; }
+        //comment
 
         public void SetNameOfDay () {
             DayOfWeek weekdayToday = DateTime.Today.DayOfWeek;
