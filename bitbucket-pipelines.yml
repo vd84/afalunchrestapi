@@ -1,0 +1,15 @@
+image: microsoft/aspnetcore-build:1.0-1.1
+
+pipelines:
+  default:
+    - step:
+        script: # Modify the commands below to build your repository.
+          - dotnet restore test.csproj
+          - dotnet buildtest.csproj
+          - dotnet publish -c Release -v n -o ./publish_output test.csproj
+          - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+          - docker build -t username/testapp:dev .
+          - docker push username/test:dev
+
+options:
+  docker: true

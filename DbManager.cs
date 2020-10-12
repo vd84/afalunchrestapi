@@ -9,12 +9,26 @@ namespace database.manager {
         public NpgsqlConnection Connection { get; set; }
 
         public DbManager () {
-            this.ConnectionString = "Host=127.0.0.1;Username=postgres;Password=postgres;Database=postgres";
+            this.ConnectionString = "Host=172.18.0.1;Username=postgres;Password=postgres;Database=postgres";
+            System.Console.WriteLine (this.ConnectionString);
             this.Connection = new NpgsqlConnection (this.ConnectionString);
             this.Connect ();
         }
 
-        public void Connect () => this.Connection.Open ();
+        public void Connect () {
+            this.Connection.Open ();
+
+            var createRestautantSql = "CREATE TABLE IF NOT EXISTS RESTAURANT(RESTAURANT_ID INT PRIMARY KEY NOT NULL GENERATED ALWAYS AS IDENTITY,RESTAURANT_NAME VARCHAR(255) NOT NULL,PHONE VARCHAR(15) NOT NULL,ADDRESS VARCHAR(100) NOT NULL)";
+            var createMenuSql = "CREATE TABLE IF NOT EXISTS MENU(MENU_ID INT PRIMARY KEY NOT NULL GENERATED ALWAYS AS IDENTITY,WEEKDAY INT,MENU_NAME VARCHAR(255),INGREDIENTS VARCHAR(255),PRICE INT,RESTAURANT_ID INT NOT NULL,CONSTRAINT FK_RESTAURANT FOREIGN KEY(RESTAURANT_ID) REFERENCES RESTAURANT(RESTAURANT_ID))";
+
+            var cmd = new NpgsqlCommand (createRestautantSql, this.Connection);
+
+            cmd.ExecuteScalar ();
+
+            cmd = new NpgsqlCommand (createMenuSql, this.Connection);
+
+            cmd.ExecuteScalar ();
+        }
 
         public void INSERTINTOMENU (int weekday, string name, string ingredients, int price, int restaurantId) {
 
