@@ -14,7 +14,7 @@ namespace Receiver.Ilmolo {
             Dictionary<int, List<MenuItem>> menuItems = null;
             string jsonAllDays = "";
 
-            var factory = new ConnectionFactory () { HostName = "localhost" };
+            var factory = new ConnectionFactory () {HostName = "172.20.0.1", Port=5672, UserName="guest", Password="guest"};
             using (var connection = factory.CreateConnection ())
             using (var channel = connection.CreateModel ()) {
                 channel.QueueDeclare (queue: "insertilmolomenu",
