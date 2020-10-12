@@ -28,6 +28,16 @@ namespace database.manager {
             cmd = new NpgsqlCommand (createMenuSql, this.Connection);
 
             cmd.ExecuteScalar ();
+
+            var insertResturangSql = "INSERT INTO RESTAURANT( RESTAURANT_NAME, PHONE, ADDRESS) values ('Diwine', '08-212885', 'Drottninggatan 25 111 51 Stockholm' )";
+            cmd = new NpgsqlCommand (insertResturangSql, this.Connection);
+
+            cmd.ExecuteScalar ();
+
+            insertResturangSql = "INSERT INTO RESTAURANT(RESTAURANT_NAME, PHONE, ADDRESS) values ('IlMolo', '08-20 36 30',  'Hamngatan 37, 111 53 Stockholm')";
+            cmd = new NpgsqlCommand (insertResturangSql, this.Connection);
+            cmd.ExecuteScalar ();
+
         }
 
         public void INSERTINTOMENU (int weekday, string name, string ingredients, int price, int restaurantId) {
