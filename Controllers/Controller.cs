@@ -19,5 +19,9 @@ namespace afalunchrestapi.Controllers {
         public ActionResult<string> AllRestaurants(){
             return new OkObjectResult(dbrepo.GetAllRestaurants());
         }
+        [HttpGet("allfood/{id}")]
+        public ActionResult<string> AllDishesSpecificRestaurant(int id){
+            return new OkObjectResult(dbrepo.GetAllDishesFromSpecificRestaurant(id));
+        }
     }
 }
