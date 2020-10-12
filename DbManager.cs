@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Dbitems.MenuItem;
+using Dbitems.RestaurantItem;
 using Npgsql;
 namespace database.manager {
     public class DbManager {
@@ -44,10 +45,53 @@ namespace database.manager {
                     Price = int.Parse (data[4].ToString ()),
                     IdOfRestaurant = int.Parse (data[5].ToString ())
                 };
+                menuItem.SetNameOfDay ();
                 listOfMenuItems.Add (menuItem);
             }
 
-            string jsonList = Newtonsoft.Json.JsonConvert.SerializeObject(listOfMenuItems, Newtonsoft.Json.Formatting.Indented);
+            string jsonList = Newtonsoft.Json.JsonConvert.SerializeObject (listOfMenuItems, Newtonsoft.Json.Formatting.Indented);
+            System.Console.WriteLine (jsonList);
+            return jsonList;
+        }
+
+        public string SelectAllRestaurants () {
+            var sql = "SELECT * FROM RESTAURANT";
+            var cmd = new NpgsqlCommand (sql, this.Connection);
+            NpgsqlDataReader data = cmd.ExecuteReader ();
+            List<RestaurantItem> listOfRestaurants = new List<RestaurantItem> ();
+
+            while (data.Read ()) {
+                RestaurantItem menuItem = new RestaurantItem () {
+                    Restaurant_Id = int.Parse (data[0].ToString ()),
+                    Restaurant_Name = data[1].ToString (),
+                    Phone = data[2].ToString (),
+                    Adress = data[3].ToString (),
+                };
+                listOfRestaurants.Add (menuItem);
+            }
+            string jsonList = Newtonsoft.Json.JsonConvert.SerializeObject (listOfRestaurants, Newtonsoft.Json.Formatting.Indented);
+            return jsonList;
+        }
+
+        public string SelectAllDishesFromSpecificRestaurant (int id) {
+            var sql = $"SELECT * FROM MENU WHERE MENU.RESTAURANT_ID = {id}";
+            var cmd = new NpgsqlCommand (sql, this.Connection);
+            NpgsqlDataReader data = cmd.ExecuteReader ();
+            List<MenuItem> listOfMenuItems = new List<MenuItem> ();
+
+            while (data.Read ()) {
+                MenuItem menuItem = new MenuItem () {
+                    Id = int.Parse (data[1].ToString ()),
+                    Title = data[2].ToString (),
+                    Ingredients = data[3].ToString (),
+                    Price = int.Parse (data[4].ToString ()),
+                    IdOfRestaurant = int.Parse (data[5].ToString ())
+                };
+                menuItem.SetNameOfDay ();
+                listOfMenuItems.Add (menuItem);
+            }
+            string jsonList = Newtonsoft.Json.JsonConvert.SerializeObject (listOfMenuItems, Newtonsoft.Json.Formatting.Indented);
+            System.Console.WriteLine (jsonList);
             return jsonList;
         }
     }
