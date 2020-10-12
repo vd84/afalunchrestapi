@@ -7,11 +7,11 @@ using Receiver.Ilmolo;
 namespace afalunchrestapi {
     public class Program {
         public static void Main (string[] args) {
-             DiwineReceiver diwine = new DiwineReceiver ();
+               DiwineReceiver diwine = new DiwineReceiver ();
             diwine.ReceiverOfDiwine ();
 
-            IlmoloReceiver ilmolo = new IlmoloReceiver ();
-            ilmolo.ReceiverOfIlmolo ();
+            IlmoloReceiver ilmolo = new IlmoloReceiver (); 
+            ilmolo.ReceiverOfIlmolo (); 
 
             System.Console.WriteLine("received all"); 
 
