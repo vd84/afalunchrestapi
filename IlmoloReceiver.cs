@@ -11,10 +11,10 @@ namespace Receiver.Ilmolo {
         public void ReceiverOfIlmolo () {
 
             DbManager dbManager = new DbManager ();
-            Dictionary<int, List<MenuItem>> menuItems = null;
+            
             string jsonAllDays = "";
 
-            var factory = new ConnectionFactory () {HostName = "172.20.0.1", Port=5672, UserName="guest", Password="guest"};
+            var factory = new ConnectionFactory () {HostName = "172.21.40.149", Port=5672, UserName="guest", Password="guest"};
             using (var connection = factory.CreateConnection ())
             using (var channel = connection.CreateModel ()) {
                 channel.QueueDeclare (queue: "insertilmolomenu",
@@ -41,7 +41,7 @@ namespace Receiver.Ilmolo {
             }
 
             //Receive the json obj
-            menuItems = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<int, List<MenuItem>>> (jsonAllDays);
+            Dictionary<int, List<MenuItem>> menuItems = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<int, List<MenuItem>>> (jsonAllDays);
             //Print json obj
             foreach (var item in menuItems) {
                 System.Console.WriteLine(item.Key);
