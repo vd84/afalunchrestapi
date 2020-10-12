@@ -31,6 +31,8 @@ namespace afalunchrestapi {
             if (env.IsDevelopment ()) {
                 app.UseDeveloperExceptionPage ();
             }
+            app.UseCors (builder => builder
+                .AllowAnyOrigin ());
 
             app.UseHttpsRedirection ();
 
@@ -41,6 +43,7 @@ namespace afalunchrestapi {
             app.UseEndpoints (endpoints => {
                 endpoints.MapControllers ();
             });
+            
         }
     }
 }
